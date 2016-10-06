@@ -120,6 +120,7 @@ class Gallery(models.Model):
 
 class GalleryImage(models.Model):
     image = models.ImageField(upload_to='images/galleries/', null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
 
     class Meta:
