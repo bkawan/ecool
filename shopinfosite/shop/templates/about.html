@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+
+    <div class="container col-md-12" style="background-color: #0b97c4">
+        <h1 style="text-align: center">About US</h1>
+    </div>
+
+</div>
+<br/>
+
+
+<div class="row">
+    <div class="col-md-3 well">
+        <h3 class="banner-title">Our location</h3>
+
+
+        {% if contacts %}
+
+        {% for contact in contacts %}
+        <p>Company Name: {{contact.company_name}} </p>
+        <p>Street Address: {{contact.street_address}} </p>
+        <p>City: {{contact.city}}</p>
+        <p>District: {{contact.district}}</p>
+        <p>Zone: {{contact.zone}}</p>
+        <p>Country: {{contact.country}}</p>
+        <p>Telephone No:{{contact.telephone_no}} </p>
+        <p>Mobile No:{{contact.mobile_no}} </p>
+        <p>Fax:{{contact.fax}} </p>
+        <p>Email:{{contact.email}} </p>
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+        <div class="col-md-9 well">
+
+
+        {% if abouts%}
+
+        {% for about in abouts %}
+        <h1> short description about company</h1>
+
+        <p>
+            {{ about.short_info}}
+        </p>
+        <p>
+            {{ about.descriptions}}
+        </p>
+        {% endfor %}
+         {% else %}
+        <p>There are no aboutus.</p>
+        {% endif %}
+
+        <br/><br/>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+    $('.autoplay').slick({
+        dots: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: false,
+        nextArrow: false
+
+    });
+</script>
+
+{% endblock %}

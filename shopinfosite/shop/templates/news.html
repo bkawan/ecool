@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} NEWS {% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+
+    <div class="container col-md-12" style="background-color: #0b97c4">
+        <h1 style="text-align: center">Latest News </h1>
+    </div>
+
+</div>
+<br/>
+
+
+<div class="row">
+    <div class="col-md-12 well">
+
+
+        {% if news %}
+
+        {% for item in news %}
+
+        <div class="col-md-12 well">
+            <h1>{{item.title}}</h1>
+            <p>{{item.created_at}}</p>
+            <p>{{item.descriptions}}</p>
+
+        </div>
+                            <hr />
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+    $('.autoplay').slick({
+        dots: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: false,
+        nextArrow: false
+
+    });
+</script>
+
+{% endblock %}

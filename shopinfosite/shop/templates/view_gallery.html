@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Gallery {% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+
+    <div class="container col-md-12" style="background-color: #0b97c4">
+        <h1 style="text-align: center">GALLERY </h1>
+    </div>
+
+</div>
+<br/>
+
+
+<div class="row">
+    <div class="col-md-12 well">
+
+
+        {% if gallery %}
+                <h1 style="text-align: center">{{gallery.name}} </h1>
+
+
+        {% for images in gallery_images %}
+
+        <div class="col-md-3 well">
+            <div>
+                <img src="{{images.image.url}}" alt="" width="250px " height="250px">
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+    $('.autoplay').slick({
+        dots: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: false,
+        nextArrow: false
+
+    });
+</script>
+
+{% endblock %}

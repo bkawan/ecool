@@ -1,0 +1,131 @@
+{% load staticfiles %}
+
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Shop{% endblock title %}</title>
+
+    {% block css %}
+
+
+    <!--<link href="{% static 'shop/frontend.css' %}" rel="stylesheet">-->
+    <!--<link href="{% static 'shop/slick.css' %}" rel="stylesheet">-->
+    <!--<script src="{% static 'shop/all.js' %}"></script>-->
+    <!--<script src="{% static 'shop/slick.js' %}"></script>-->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+
+    {% endblock %}
+
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                {% if logo %}
+                <img src="{{logo.logo.url}}" alt="Effective Cool Services" height="30px" width="50px">
+                {% else %}
+                NO SHOP LOGO
+                {% endif %}
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'shop:about'%}">About us</a></li>
+                <li><a href="{% url 'shop:contact'%}">Contact Us</a></li>
+                <li><a href="{% url 'shop:contact'%}">Products</a></li>
+                <li><a href="{% url 'shop:gallery'%}">Photo Gallery</a></li>
+                <li><a href="{% url 'shop:news'%}">Latest News</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span
+                        class="caret"></span></a>
+                        {% if categories %}
+
+                    <ul class="dropdown-menu">
+                         {% for category in categories %}
+
+            <li><p><a href="category/{{category.id}}">{{category.name}}</a></p></li>
+        {% endfor %}
+                         {% else %}
+        <li>There are no posts.</li>
+    {% endif %}
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container" style="margin-top: 50px">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            {% block content %}
+
+            this is shop site
+
+            {% endblock content %}
+
+
+        </div>
+    </div>
+
+    <!----- footer --->
+    <div>
+        <div class="row">
+            <div class="col-md-4 well "> About us</div>
+            <div class="col-md-4 well "> Latest News</div>
+            <div class="col-md-4 well "> Contact Us</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascript %}
+<!-- Required by Bootstrap v4 Alpha 4 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+        integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"
+        integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"
+        integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU"
+        crossorigin="anonymous"></script>
+
+<!-- Your stuff: Third-party javascript libraries go here -->
+
+<!-- place project specific Javascript in this file -->
+
+<!--<script src="{% static 'js/project.js' %}"></script>-->
+
+
+{% endblock javascript %}
+</body>
+</html>

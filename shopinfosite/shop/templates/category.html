@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Category {% endblock %}
+
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-sm-3 well">
+        {% if category %}
+        <h4 class="well"><span class="glyphicon glyphicon-th-list"></span> {{category.name}}</h4>
+        <div class="well">
+            <ul class="contentLinks">
+
+                {% if items %}
+                {% for item in items%}
+
+                <li><a id="{{item.id}}" href="">{{item.name}}</a></li>
+
+
+                {% endfor %}
+
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+
+
+    </div>
+
+
+    <!-- Hidden -->
+    <div class="col-sm-9 post">
+        {% if latest_item %}
+
+        <div id="{{latest_item.id}}" class="box">
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span>{{latest_item.name}}</h4>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 ">
+
+                    <div class="well">
+                        image path {{latest_item.name}}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 ">
+
+                    <div class="well">
+
+                        {{latest_item.item_description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-------- Hidden --------->
+        {% if items %}
+        {% for item in items %}
+
+        <div id="{{item.id}}" class="box">
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span>{{item.name}}</h4>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 ">
+
+                    <div class="well">
+
+
+                        <img src="../../" height="150" width="200">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 ">
+
+                    <div class="well">
+                        {{item.item_description}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% else %}
+    <div class="col-sm-9 post">
+
+        <div class="well">
+
+            <h1>Sorry There are not post to display in this category</h1>
+        </div>
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+    ('.autoplay').slick({
+        dots: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: false,
+        nextArrow: false
+
+    });
+</script>
+
+{% endblock %}
