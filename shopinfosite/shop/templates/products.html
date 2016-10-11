@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Products {% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+
+        <div class="container col-md-12" style="background-color: #0b97c4">
+            <h1 style="text-align: center">Products </h1>
+        </div>
+
+    </div>
+    <br/>
+
+
+    <div class="row">
+        <div class="col-md-12 well">
+
+            {% if products %}
+
+                {% for product in products %}
+
+                    <div class="col-md-3 well">
+
+                        <div>
+                            <a href="products/{{ product.id }}/">
+                                <img src="{{ product.item_logo.url }}" alt="{{ product.name }}" width="250px "
+                                     height="250px"/>
+                            </a>
+
+                        </div>
+                        <div>
+                        <p>Name: <b>{{ product.name }}</b></p>
+                        <p>Category: <b>{{ product.category }}</b></p>
+                            <p><a href="products/{{ product.id }}/">Detail</a></p>
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
+            {% endif %}
+        </div>
+        <div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+    <script>
+
+        $('.autoplay').slick({
+            dots: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: false,
+            nextArrow: false
+
+        });
+    </script>
+
+{% endblock %}

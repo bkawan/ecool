@@ -1,19 +1,20 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+import os
 # Create your models here.
 from django.utils.safestring import mark_safe
 
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
 
     created_at = models.DateTimeField(
-        auto_now_add=True, editable=False)
+        auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
-        auto_now=True, editable=False)
+        auto_now=True, editable=True)
 
     name = models.CharField(max_length=255, null=True,blank=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
 
 
     class Meta:
@@ -28,19 +29,25 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_products(self):
+        return Item.objects.filter(category=self)
+
+
 
 class Item(models.Model):
+
     created_at = models.DateTimeField(
-        auto_now_add=True, editable=False)
+        auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
-        auto_now=True, editable=False)
+        auto_now=True, editable=True)
 
     name = models.CharField(max_length=255, null=True,blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    descriptions = models.TextField(null=True, blank=True)
+    # descriptions = models.TextField(null=True, blank=True)
+    descriptions = RichTextField()
     item_logo = models.FileField(upload_to='images/item_logo/', null=True, blank=True)
 
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
         db_table = 'items'
@@ -53,12 +60,19 @@ class Item(models.Model):
 
         return self.name
 
+    def item_cover_image(self):
+        return '<img src="{}" height="40px" width="40px"/>'.format(self.item_logo.url)
+
+    item_cover_image.allow_tags = True
+
 
 class ItemImage(models.Model):
 
-    image = models.FileField(upload_to='images/item_images/', null=True, blank=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    image = models.FileField(upload_to='images/item_images/', null=True, blank=True)
+
 
 
     class Meta:
@@ -68,10 +82,23 @@ class ItemImage(models.Model):
     #     return force_unicode(self.title)
 
     def __str__(self):
-        return self.image
+        return self.image.url
+
+    def item_image(self):
+        return '<img src="{}" height="100px" width="100px"/>'.format(self.image.url)
+
+    item_image.allow_tags = True
+
+    def image_name(self):
+        return os.path.basename(self.image.name)
+
 
 
 class Contact(models.Model):
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=True)
+    modified_at = models.DateTimeField(
+        auto_now=True, editable=True)
 
     company_name = models.CharField(max_length=255, null=True, blank=True)
     street_address = models.CharField(max_length=255, null=True, blank=True)
@@ -88,7 +115,7 @@ class Contact(models.Model):
     twitter = models.CharField(max_length=255, null=True, blank=True)
     googleplus = models.CharField(max_length=255, null=True, blank=True)
 
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
         db_table = 'contacts'
@@ -101,12 +128,12 @@ class Contact(models.Model):
 class Gallery(models.Model):
 
     created_at = models.DateTimeField(
-        auto_now_add=True, editable=False)
+        auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
-        auto_now=True, editable=False)
+        auto_now=True, editable=True)
     name = models.CharField(max_length=255, null=True, blank=True)
     cover_image = models.ImageField(upload_to='images/galleries/', null=True, blank=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    # slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
         db_table = "galleries"
@@ -116,6 +143,9 @@ class Gallery(models.Model):
 
     def __str__(self):
         return self.name
+
+    def image_name(self):
+        return os.path.basename(self.cover_image.name)
 
 
 class GalleryImage(models.Model):
@@ -129,13 +159,22 @@ class GalleryImage(models.Model):
     def __str__(self):
         return self.image.url
 
+    def image_name(self):
+        return os.path.basename(self.image.name)
 
 
 class About(models.Model):
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=True)
+    modified_at = models.DateTimeField(
+        auto_now=True, editable=True)
 
-    short_info = models.TextField(null=True, blank=True)
-    descriptions = models.TextField(null=True, blank=True)
-    slug = models.SlugField(max_length=100, unique=True)
+
+
+    company_name = models.CharField(max_length=255, null=True, blank=True)
+    short_info = RichTextField()
+    descriptions = RichTextField()
+    # slug = models.SlugField(max_length=100, unique=True)
 
 
 
@@ -146,7 +185,7 @@ class About(models.Model):
     #     return force_unicode(self.company_name)
 
     def __str__(self):
-        return self.short_info
+        return self.company_name
 
 
 class ContactMessage(models.Model):
@@ -158,7 +197,6 @@ class ContactMessage(models.Model):
 
     class Meta:
         db_table = 'contact_messages'
-
 
     def __str__(self):
         return self.full_name
@@ -179,11 +217,11 @@ class BannerImage(models.Model):
 
 class News(models.Model):
     created_at = models.DateTimeField(
-        auto_now_add=True, editable=False)
+        auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
-        auto_now=True, editable=False)
+        auto_now=True, editable=True)
     title = models.CharField(max_length=255, null=True, blank=True)
-    descriptions = models.TextField(null=True, blank=True)
+    descriptions = RichTextField()
 
     class Meta:
         db_table = 'news'
@@ -194,9 +232,9 @@ class News(models.Model):
 
 class ShopLogo(models.Model):
     created_at = models.DateTimeField(
-        auto_now_add=True, editable=False)
+        auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
-        auto_now=True, editable=False)
+        auto_now=True, editable=True)
     logo = models.ImageField(upload_to="images/shop_logo")
     title = models.CharField(max_length=255, null=True, blank=True)
 
@@ -206,3 +244,21 @@ class ShopLogo(models.Model):
 
     def __str__(self):
         return self.title + ":" + self.logo.url
+
+
+class SocialLink(models.Model):
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=True)
+    modified_at = models.DateTimeField(
+        auto_now=True, editable=True)
+    facebook = models.CharField(max_length=255, null=True, blank=True)
+    twitter = models.CharField(max_length=255, null=True, blank=True)
+    googleplus = models.CharField(max_length=255, null=True, blank=True)
+    youtube = models.CharField(max_length=255, null=True, blank=True)
+    linkedin = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'social_links'
+
+    def __str__(self):
+        return self.facebook

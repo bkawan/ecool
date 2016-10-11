@@ -8,159 +8,164 @@
 {% block content %}
 
 
-<div class="row">
+    <div class="row">
 
-    <div class="autoplay" slick="">
-        {% if banners %}
-        {% for banner in  banners %}
-        <div class="well col-md-12">
-            <img src="{{banner.image.url}}" width="1100 px" height="450 px"/>
-        </div>
+        <div class="autoplay" slick="">
+            {% if banners %}
+                {% for banner in  banners %}
+                    <div class="well col-md-12">
+                        <img src="{{ banner.image.url }}" width="1100 px" height="450 px"/>
+                    </div>
 
                 {% endfor %}
-         {% else %}
+            {% else %}
 
-        <div class="well col-md-12">
-            <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
+                <div class="well col-md-12">
+                    <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
+                </div>
+            {% endif %}
+
+
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 well">
+
+            {% if abouts %}
+
+                {% for about in abouts %}
+                    <h1> short description about company {{ about.company_name }}</h1>
+
+                    <p>
+                        {{ about.short_info|safe|truncatewords:"20"|linebreaks }}
+                    </p>
+                    <p><a href="/about"> Read more</a></p>
+                {% endfor %}
+            {% else %}
+                <p>There are no aboutus.</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-3 well">
+            <h4 class="well"><span class="glyphicon glyphicon-th-list"></span> Categories</h4>
+            <div class="well">
+
+                {% if categories %}
+                    {% for category in categories %}
+                        <p><a href="category/{{ category.id }}">{{ category.name }}</a></p>
+                    {% endfor %}
+
+                {% else %}
+                    <p>There are no category.</p>
+                {% endif %}
+            </div>
+            <h4 class="well"><span class="glyphicon glyphicon-user"></span> Contact US</h4>
+
+            <div class="well">
+                {% if contacts %}
+
+                    {% for contact in contacts %}
+                        <p>Company Name: {{ contact.company_name }} </p>
+                        <p>Street Address: {{ contact.street_address }} </p>
+                        <p>City: {{ contact.city }}</p>
+                        <p>District: {{ contact.district }}</p>
+                        <p>Zone: {{ contact.zone }}</p>
+                        <p>Country: {{ contact.country }}</p>
+                        <p>Telephone No:{{ contact.telephone_no }} </p>
+                        <p>Mobile No:{{ contact.mobile_no }} </p>
+                        <p>Fax:{{ contact.fax }} </p>
+                        <p>Email:{{ contact.email }} </p>
+                    {% endfor %}
+                {% else %}
+                    <p>There are no contacts.</p>
+
+                {% endif %}
+            </div>
+
+            <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span> News and Updates</h4>
+
+            <div class="well">
+
+                {% if newses %}
+                    {% for news in newses %}
+                        <p><a href="news">{{ news.title }}</a></p>
+                        <p>{{ news.descriptions|safe|truncatewords:"20"|linebreaks }} </p>
+
+                        <p><a href="news">Read More ..</a></p>
+
+                    {% endfor %}
+                {% else %}
+                    <p>There are no news.</p>
                 {% endif %}
 
 
-
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12 well">
-
-        {% if abouts%}
-
-        {% for about in abouts %}
-        <h1> short description about company</h1>
-
-        <p>
-            {{ about.short_info}}
-        </p>
-        {% endfor %}
-         {% else %}
-        <p>There are no aboutus.</p>
-        {% endif %}
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-sm-3 well">
-        <h4 class="well"><span class="glyphicon glyphicon-th-list"></span> Categories</h4>
-        <div class="well">
-
-            {% if categories %}
-            {% for category in categories %}
-            <p><a href="category/{{category.id}}">{{category.name}}</a></p>
-            {% endfor %}
-
-             {% else %}
-        <p>There are no category.</p>
-            {% endif %}
-        </div>
-        <h4 class="well"><span class="glyphicon glyphicon-user"></span> Contact US</h4>
-
-        <div class="well">
-            {% if contacts %}
-
-            {% for contact in contacts %}
-            <p>Company Name: {{contact.company_name}} </p>
-            <p>Street Address: {{contact.street_address}} </p>
-            <p>City: {{contact.city}}</p>
-            <p>District: {{contact.district}}</p>
-            <p>Zone: {{contact.zone}}</p>
-            <p>Country: {{contact.country}}</p>
-            <p>Telephone No:{{contact.telephone_no}} </p>
-            <p>Mobile No:{{contact.mobile_no}} </p>
-            <p>Fax:{{contact.fax}} </p>
-            <p>Email:{{contact.email}} </p>
-            {% endfor %}
-               {% else %}
-        <p>There are no contacts.</p>
-
-            {% endif %}
-        </div>
-
-        <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span> News and Updates</h4>
-
-        <div class="well">
-
-            {% if newses %}
-            {% for news in newses %}
-            <p><a href="news">{{news.title}}</a></p>
-            <p>{{news.descriptions}} </p>
-            {% endfor %}
-             {% else %}
-        <p>There are no news.</p>
-            {% endif %}
-
-
-        </div>
-
-
-    </div>
-    <div class="col-sm-9 ">
-
-        <div class="row">
-            <div class="col-sm-12 ">
-                <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span> Featured products</h4>
-
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="well">
-                    <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">
+
+        </div>
+        <div class="col-sm-9 ">
+
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span>Latest Products</h4>
+
                 </div>
             </div>
-            <div class="col-sm-9">
-                <div class="well">
-                    <h4>Product Title</h4>
-                    <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                        something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                </div>
-            </div>
-        </div>
+
+{#            <div class="row">#}
+{#                <div class="col-sm-3">#}
+{#                    <div class="well">#}
+{#                        <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-sm-9">#}
+{#                    <div class="well">#}
+{#                        <h4>Product Title</h4>#}
+{#                        <p>Just Forgot that I had to mention something about someone to someone about how I forgot#}
+{#                            something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
 
 
 
-        {% if items %}
-        {% for item in items %}
+            {% if items %}
+                {% for item in items %}
 
 
-        <div class="row">
-            <div class="col-sm-3">
+                    <div class="row">
 
 
-                    <img src="{{item.item_logo.url}}" height="150" width="200" alt="Avatar">
+                            <div class="col-sm-12">
 
-            </div>
+                                <div class="col-md-8">
+                                    <h2><a href="products/{{ item.id }}">{{ item.name }}</a></h2>
+                                    <p>Posted Date {{ item.created_at }}</p>
+                                    <p>Category:<a href="category/{{ item.category.id }}"> {{ item.category }}</a>
 
-            <div class="col-sm-9">
-                <div class="well">
-                    <h2><a href="">{{item.name}}</a></h2>
-                    <p>Posted Date {{item.created_at}}</p>
-                    <p>Category:<a href="category/{{item.category.id}}"> {{item.category}}</a></p>
-                    <p>{{item.descriptions}}</p>
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{{ item.item_logo.url }}" height="150" width="200" alt="Avatar">
 
-                    <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                        something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-         {% else %}
-        <p>There are no items.</p>
-        {% endif %}
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12">
+                                {{ item.descriptions|safe }}
+
+                            </div>
+                        </div>
+                {% endfor %}
+            {% else %}
+                <p>There are no items.</p>
+            {% endif %}
     </div>
-</div>
+    </div>
 
 
 
@@ -168,18 +173,18 @@
 
 {% block javascript %}
 
-<script>
+    <script>
 
-    $('.autoplay').slick({
-        dots: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        prevArrow: false,
-        nextArrow: false
+        $('.autoplay').slick({
+            dots: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: false,
+            nextArrow: false
 
-    });
-</script>
+        });
+    </script>
 
 {% endblock %}

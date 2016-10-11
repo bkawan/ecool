@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
-from .models import Category, Contact, News, About, Item, BannerImage, Gallery, GalleryImage
+from .models import Category, Contact, News, About, Item, BannerImage, Gallery, GalleryImage, ItemImage
 from django.http import HttpResponse
 
 from django.shortcuts import render_to_response, get_object_or_404
@@ -14,8 +15,10 @@ def index(request):
         # 'categories': Category.objects.all(),
         'contacts': Contact.objects.all(),
         'abouts': About.objects.all(),
-        'newses': News.objects.all(),
-        'items': Item.objects.all(),
+        # 'newses': News.objects.all(),
+        'newses': News.objects.order_by("-created_at")[:1],
+        # 'items': Item.objects.all(),
+        'items': Item.objects.order_by("-created_at")[:5],
         'banners': BannerImage.objects.all(),
 
 
@@ -90,4 +93,35 @@ def news(request):
         'news': News.objects.all(),
     }
     return render(request, template_name='news.html', context=context)
+
+
+def products(request):
+    product_list = Item.objects.all()
+    paginator = Paginator(product_list, 20)
+
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
+
+    return render(request, 'products.html', {'products': products},)
+
+
+
+def view_product(request,item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    context = {
+        "categories": Category.objects.all(),
+        "product": item,
+        "item_images": ItemImage.objects.filter(item=item),
+
+
+    }
+
+    return render(request, template_name='view_product.html', context=context)
 

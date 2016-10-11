@@ -30,13 +30,13 @@
     <div class="col-md-12 well">
 
 
-        {% if abouts%}
+        {% if abouts %}
 
         {% for about in abouts %}
         <h1> short description about company</h1>
 
         <p>
-            {{ about.short_info}}
+            {{ about.short_info|safe}}
         </p>
         {% endfor %}
         {% else %}
@@ -75,6 +75,17 @@
         <p>Fax:{{contact.fax}} </p>
         <p>Email:{{contact.email}} </p>
         {% endfor %}
+            {% else %}
+             <p>Company Name:</p>
+        <p>Street Address:</p>
+        <p>City:</p>
+        <p>District:</p>
+        <p>Zone:</p>
+        <p>Country:</p>
+        <p>Telephone No:</p>
+        <p>Mobile No:</p>
+        <p>Fax:</p>
+        <p>Email:</p>
 
         {% endif %}
     </div>

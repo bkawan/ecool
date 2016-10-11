@@ -37,6 +37,18 @@
         <p>Email:{{contact.email}} </p>
         {% endfor %}
 
+
+              {% else %}
+             <p>Company Name:</p>
+        <p>Street Address:</p>
+        <p>City:</p>
+        <p>District:</p>
+        <p>Zone:</p>
+        <p>Country:</p>
+        <p>Telephone No:</p>
+        <p>Mobile No:</p>
+        <p>Fax:</p>
+        <p>Email:</p>
         {% endif %}
     </div>
 
@@ -49,10 +61,10 @@
         <h1> short description about company</h1>
 
         <p>
-            {{ about.short_info}}
+            {{ about.short_info|safe}}
         </p>
         <p>
-            {{ about.descriptions}}
+            {{ about.descriptions|safe}}
         </p>
         {% endfor %}
          {% else %}

@@ -18,10 +18,15 @@ from django.contrib import admin
 from django.conf.urls import url,include
 from django.conf import  settings
 from django.conf.urls.static import static
+admin.site.site_header = 'Shop Administration'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^shop/', include('shop.urls')),
     url(r'', include('shop.urls')),
+
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 
 
