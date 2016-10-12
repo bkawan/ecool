@@ -93,7 +93,7 @@
 
                         <ul class="dropdown-menu">
                             {% for category in categories %}
-                                <li><a href="category/{{ category.id }}">{{ category.name }}</a></li>
+                                <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
 
                             {% endfor %}
                         </ul>
@@ -138,7 +138,7 @@
 
     <!----- footer --->
     <div>
-        <div class="row well" style="background-color:transparent">
+        <div class="row well" style="background-color:rgba(128, 155, 255, 0.44)">
             <div class="col-md-4"><h3>About us</h3>
                 {% if about_us %}
                     <p>Company Name: <b>{{ about_us.company_name }}</b></p>

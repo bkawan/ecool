@@ -21,9 +21,9 @@ def index(request):
         'items': Item.objects.order_by("-created_at")[:5],
         'banners': BannerImage.objects.all(),
 
-
     }
     return render(request, 'index.html', context)
+
 
 def about(request):
     context = {
@@ -32,7 +32,8 @@ def about(request):
         'abouts': About.objects.all(),
 
     }
-    return render(request,'about.html', context)
+    return render(request, 'about.html', context)
+
 
 def contact(request):
     form_class = ContactForm
@@ -60,15 +61,29 @@ def view_category(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     context = {
         'category': category,
-        'items': Item.objects.filter(category=category),
-        'latest_item': Item.objects.filter(category=category).latest('created_at'),
+        # 'items': Item.objects.filter(category=category),
+        'latest_item_in_category': Item.objects.filter(category=category).latest('created_at'),
     }
 
-    return render(request, 'category.html', context)
+    # return render(request, 'category.html', context)
+    return render(request, 'view_category.html', context)
+
+
+def view_category_product(request, category_id, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    category = get_object_or_404(Category, pk=category_id)
+
+    context = {
+        'category': category,
+        'item': item,
+        'latest_item_in_category': Item.objects.filter(category=category).latest('created_at'),
+    }
+
+    # return render(request, 'category.html', context)
+    return render(request, 'view_category.html', context)
 
 
 def galleries(request):
-
     context = {
         'galleries': Gallery.objects.all(),
     }
@@ -77,7 +92,6 @@ def galleries(request):
 
 
 def view_gallery(request, gallery_id):
-
     gallery = get_object_or_404(Gallery, pk=gallery_id)
     context = {
         "gallery": gallery,
@@ -109,19 +123,16 @@ def products(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         products = paginator.page(paginator.num_pages)
 
-    return render(request, 'products.html', {'products': products},)
+    return render(request, 'products.html', {'products': products}, )
 
 
-
-def view_product(request,item_id):
+def view_product(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     context = {
         "categories": Category.objects.all(),
         "product": item,
         "item_images": ItemImage.objects.filter(item=item),
 
-
     }
 
     return render(request, template_name='view_product.html', context=context)
-

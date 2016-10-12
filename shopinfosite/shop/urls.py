@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^news$', views.news, name='news'),
     url(r'^gallery/(?P<gallery_id>[0-9]+)/$', views.view_gallery, name='view_gallery'),
     url(r'^category/(?P<category_id>[0-9]+)/$', views.view_category, name='view_category'),
+    url(r'^category/(?P<category_id>[0-9]+)/product/(?P<item_id>[0-9]+)/$', views.view_category_product, name='view_category_product'),
 
 ]

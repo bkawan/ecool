@@ -65,6 +65,9 @@ class Item(models.Model):
 
     item_cover_image.allow_tags = True
 
+    def get_images(self):
+        return ItemImage.objects.filter(item=self)
+
 
 class ItemImage(models.Model):
 
@@ -74,12 +77,8 @@ class ItemImage(models.Model):
     image = models.FileField(upload_to='images/item_images/', null=True, blank=True)
 
 
-
     class Meta:
         db_table = 'item_images'
-    #
-    # def __unicode__(self):
-    #     return force_unicode(self.title)
 
     def __str__(self):
         return self.image.url
@@ -91,7 +90,6 @@ class ItemImage(models.Model):
 
     def image_name(self):
         return os.path.basename(self.image.name)
-
 
 
 class Contact(models.Model):

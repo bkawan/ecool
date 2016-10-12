@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load image_name %}
+
+{% block title %} View Product {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-image-gallery.min.css' %} ">
+{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-3 well">
+            {% if category %}
+
+                <h3>{{ category.name }}</h3>
+                <ul>
+                    {% for item in category.get_products %}
+                        <li><a href="/category/{{ category.id }}/product/{{ item.id }}">{{ item.name }}</a></li>
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Hidden -->
+        <div class="col-sm-9 post">
+
+            {% if item %}
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="well">
+                            <h1> {{ item.name }} </h1>
+
+                            <p>{{ item.category }}</p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 ">
+
+                        {% if item.get_images %}
+
+
+                            {% for image in  item.get_images %}
+
+                                <div class="col-md-4 well" id="links">
+
+                                    {% if image.name %}
+                                        <a href="{{ image.image.url }}" title="{{ image.name }}"
+                                           data-gallery="">
+                                    {% else %}
+
+                                        <a href="{{ image.image.url }}" title="{{ image|image_name }}"
+                                           data-gallery="">
+                                    {% endif %}
+                                    <img src="{{ image.image.url }}" alt="" width="250px " height="250px">
+                                    </a>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 ">
+
+                            <div class="well">
+
+                                {{ item.descriptions|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
+         {% if not item  %}
+             {% if latest_item_in_category %}
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="well">
+                            <h1> {{ latest_item_in_category.name }} </h1>
+
+                            <p>{{ latest_item_in_category.category }}</p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 ">
+
+                        {% if latest_item_in_category.get_images %}
+
+
+                            {% for image in  latest_item_in_category.get_images %}
+
+                                <div class="col-md-4 well" id="links">
+
+                                    {% if image.name %}
+                                        <a href="{{ image.image.url }}" title="{{ image.name }}"
+                                           data-gallery="">
+                                    {% else %}
+
+                                        <a href="{{ image.image.url }}" title="{{ image|image_name }}"
+                                           data-gallery="">
+                                    {% endif %}
+                                    <img src="{{ image.image.url }}" alt="" width="250px " height="250px">
+                                    </a>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 ">
+
+                            <div class="well">
+
+                                {{ latest_item_in_category.descriptions|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endif %}
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="true">
+        <!--<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">-->
+        <!-- The container for the modal slides -->
+        <div class="slides"></div>
+        <!-- Controls for the borderless lightbox -->
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+        <!-- The modal dialog, which will be used to wrap the lightbox content -->
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body next"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left prev">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            Previous
+                        </button>
+                        <button type="button" class="btn btn-primary next">
+                            Next
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="{% static 'js/bootstrap-image-gallery.min.js' %}"></script>
+
+    <!--<script src="{% static 'js/demo.js' %}"></script>-->
+
+    <script>
+
+        ('.autoplay').slick({
+            dots: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: false,
+            nextArrow: false
+
+        });
+    </script>
+
+{% endblock %}
