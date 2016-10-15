@@ -68,6 +68,9 @@ class Item(models.Model):
     def get_images(self):
         return ItemImage.objects.filter(item=self)
 
+    def image_name(self):
+        return os.path.basename(self.item_logo.name)
+
 
 class ItemImage(models.Model):
 

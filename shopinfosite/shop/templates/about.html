@@ -3,14 +3,35 @@
 
 {% block title %}About Us{% endblock %}
 
+{% block banner %}
+
+    <div class="autoplay" slick="">
+        {% if banners %}
+            {% for banner in  banners %}
+                <div class="col-md-12">
+                    <img src="{{ banner.image.url }}" width="1100 px" height="450 px"/>
+                </div>
+
+            {% endfor %}
+        {% else %}
+
+            <div class="col-md-12">
+                <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
+            </div>
+        {% endif %}
+
+
+    </div>
+{% endblock %}
+
 {% block content %}
 
 
 
 <div class="row">
 
-    <div class="container col-md-12" style="background-color: #0b97c4">
-        <h1 style="text-align: center">About US</h1>
+    <div class="container col-md-12" style="background-color: #0E2231;color:#9e9e9e">
+        <h2 style="text-align: center">About Us</h2>
     </div>
 
 </div>
@@ -18,8 +39,8 @@
 
 
 <div class="row">
-    <div class="col-md-3 well">
-        <h3 class="banner-title">Our location</h3>
+    <div class="col-md-3 well" style="background-color: #0E2231;color:#9e9e9e">
+        <h4 class="banner-title well" >Our location</h4>
 
 
         {% if contacts %}
@@ -52,17 +73,19 @@
         {% endif %}
     </div>
 
-        <div class="col-md-9 well">
+        <div class="col-md-9">
 
 
         {% if abouts%}
 
         {% for about in abouts %}
-        <h1> short description about company</h1>
 
         <p>
             {{ about.short_info|safe}}
         </p>
+
+                                <hr style="border-top:1px dashed #9e9e9e" />
+
         <p>
             {{ about.descriptions|safe}}
         </p>

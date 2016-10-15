@@ -40,6 +40,8 @@ def about(request):
         # 'categories': Category.objects.all(),
         'contacts': Contact.objects.all(),
         'abouts': About.objects.all(),
+        'banners': BannerImage.objects.all(),
+
 
     }
     return render(request, 'about.html', context)

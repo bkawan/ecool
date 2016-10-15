@@ -1,45 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load image_name %}
 
 {% block title %}Shop Index Page{% endblock %}
 
 
 
+{% block banner %}
+
+    <div class="autoplay" slick="">
+        {% if banners %}
+            {% for banner in  banners %}
+                <div class="col-md-12">
+                    <img src="{{ banner.image.url }}" width="1100 px" height="450 px"/>
+                </div>
+
+            {% endfor %}
+        {% else %}
+
+            <div class="col-md-12">
+                <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
+            </div>
+        {% endif %}
+
+
+    </div>
+{% endblock %}
 {% block content %}
 
 
-    <div class="row">
 
-        <div class="autoplay" slick="">
-            {% if banners %}
-                {% for banner in  banners %}
-                    <div class="well col-md-12">
-                        <img src="{{ banner.image.url }}" width="1100 px" height="450 px"/>
-                    </div>
-
-                {% endfor %}
-            {% else %}
-
-                <div class="well col-md-12">
-                    <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
-                </div>
-            {% endif %}
-
-
-        </div>
-    </div>
 
     <div class="row">
-        <div class="col-md-12 well">
+        <div class="col-md-12 well" style="background-color: #0E2231;color:#9e9e9e">
 
             {% if about_us %}
 
-                    <h1> short description about company {{ about_us.company_name }}</h1>
+                <h4> {{ about_us.company_name }}</h4>
 
-                    <p>
-                        {{ about_us.short_info|safe|truncatewords:"20"|linebreaks }}
-                    </p>
-                    <p><a href="/about"> Read more</a></p>
+                <p>
+                    {{ about_us.short_info|safe|truncatewords:"20"|linebreaks }}
+                </p>
+                <p><a href="/about"> Read more</a></p>
             {% else %}
                 <p>There are no aboutus.</p>
             {% endif %}
@@ -48,45 +50,51 @@
 
 
     <div class="row">
-        <div class="col-sm-3 well">
+        <div class="col-sm-3 well" style="background-color: #0E2231">
             <h4 class="well"><span class="glyphicon glyphicon-th-list"></span> Categories</h4>
-            <div class="well">
+            {#            <div class="well">#}
+
+
+            <ul>
 
                 {% if categories %}
                     {% for category in categories %}
-                        <p><a href="category/{{ category.id }}">{{ category.name }}</a></p>
+                        <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
                     {% endfor %}
 
                 {% else %}
-                    <p>There are no category.</p>
+                    <li>There are no category.</li>
                 {% endif %}
-            </div>
+            </ul>
+
+            {#            </div>#}
             <h4 class="well"><span class="glyphicon glyphicon-user"></span> Contact US</h4>
 
-            <div class="well">
+            <div style="color: #9e9e9e">
                 {% if contact_us %}
 
-{#                    {% for contact in contacts %}#}
-                        <p>Company Name: {{ contact_us.company_name }} </p>
-                        <p>Street Address: {{ contact_us.street_address }} </p>
-                        <p>City: {{ contact_us.city }}</p>
-                        <p>District: {{ contact_us.district }}</p>
-                        <p>Zone: {{ contact_us.zone }}</p>
-                        <p>Country: {{ contact_us.country }}</p>
-                        <p>Telephone No:{{ contact_us.telephone_no }} </p>
-                        <p>Mobile No:{{ contact_us.mobile_no }} </p>
-                        <p>Fax:{{ contact_us.fax }} </p>
-                        <p>Email:{{ contact_us.email }} </p>
-{#                    {% endfor %}#}
+                    {#                    {% for contact in contacts %}#}
+                    <p>Company Name: <b>{{ contact_us.company_name }}</b></p>
+                    <p>Street Address: <b>{{ contact_us.street_address }}</b></p>
+                    <p>City: <b>{{ contact_us.city }}</b></p>
+                    <p>District: <b>{{ contact_us.district }}</b></p>
+                    <p>Zone: <b>{{ contact_us.zone }}</b></p>
+                    <p>Country: <b>{{ contact_us.country }}</b></p>
+                    <p>Telephone No:<b>{{ contact_us.telephone_no }}</b></p>
+                    <p>Mobile No:<b>{{ contact_us.mobile_no }}</b></p>
+                    <p>Fax:<b>{{ contact_us.fax }}</b></p>
+                    <p>Email:<b>{{ contact_us.email }}</b></p>
+                    {#                    {% endfor %}#}
                 {% else %}
                     <p>There are no contacts.</p>
 
                 {% endif %}
             </div>
 
-            <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span> News and Updates</h4>
 
-            <div class="well">
+            <h4 class="well"><i class="fa fa-newspaper-o" aria-hidden="true"></i> News and Updates</h4>
+
+            <div style="color: #9e9e9e">
 
                 {% if newses %}
                     {% for news in newses %}
@@ -105,29 +113,26 @@
 
 
         </div>
-        <div class="col-sm-9 ">
+        <div class="col-sm-9">
 
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <h4 class="well"><span class="glyphicon glyphicon-triangle-right"></span>Latest Products</h4>
+            <h4 class="row well" style="background-color: #0E2231;color:#9e9e9e">
+                <span class="glyphicon glyphicon-triangle-right"></span>Latest Products</h4>
 
-                </div>
-            </div>
 
-{#            <div class="row">#}
-{#                <div class="col-sm-3">#}
-{#                    <div class="well">#}
-{#                        <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-sm-9">#}
-{#                    <div class="well">#}
-{#                        <h4>Product Title</h4>#}
-{#                        <p>Just Forgot that I had to mention something about someone to someone about how I forgot#}
-{#                            something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
+            {#            <div class="row">#}
+            {#                <div class="col-sm-3">#}
+            {#                    <div class="well">#}
+            {#                        <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <div class="col-sm-9">#}
+            {#                    <div class="well">#}
+            {#                        <h4>Product Title</h4>#}
+            {#                        <p>Just Forgot that I had to mention something about someone to someone about how I forgot#}
+            {#                            something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
 
 
 
@@ -138,33 +143,39 @@
                     <div class="row">
 
 
-                            <div class="col-sm-12">
+                        <div class="col-sm-12">
 
-                                <div class="col-md-8">
-                                    <h2><a href="products/{{ item.id }}">{{ item.name }}</a></h2>
-                                    <p>Posted Date {{ item.created_at }}</p>
-                                    <p>Category:<a href="category/{{ item.category.id }}"> {{ item.category }}</a>
+                            <div class="col-md-8">
+                                <h2><a href="products/{{ item.id }}">{{ item.name }}</a></h2>
+                                <p>Posted Date {{ item.created_at }}</p>
+                                <p>Category:<a href="category/{{ item.category.id }}"> {{ item.category }}</a>
 
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="{{ item.item_logo.url }}" height="150" width="200" alt="Avatar">
-
-                                </div>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="{{ item.item_logo.url }}" height="150" width="200"
+                                     alt="{{ item.image_name }}">
 
                             </div>
+
+                        </div>
+
+                        <div class="col-sm-12">
                             <div class="col-sm-12">
                                 {{ item.descriptions|safe }}
-
                             </div>
                         </div>
+                    </div>
+                    <hr style="border-top:1px dashed #9e9e9e" />
                 {% endfor %}
             {% else %}
-                <p>There are no items.</p>
-            {% endif %}
-    </div>
-    </div>
+                <div class="row well">
+                    <p>There are no items.</p>
 
+                </div>
+            {% endif %}
+        </div>
+    </div>
 
 
 {% endblock %}
