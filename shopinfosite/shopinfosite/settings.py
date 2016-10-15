@@ -71,6 +71,7 @@ TEMPLATES = [
                 'shop.context_processors.about_us',
                 'shop.context_processors.contact_us',
 
+
             ],
         },
     },

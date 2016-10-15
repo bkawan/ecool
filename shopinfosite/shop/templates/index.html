@@ -32,16 +32,14 @@
     <div class="row">
         <div class="col-md-12 well">
 
-            {% if abouts %}
+            {% if about_us %}
 
-                {% for about in abouts %}
-                    <h1> short description about company {{ about.company_name }}</h1>
+                    <h1> short description about company {{ about_us.company_name }}</h1>
 
                     <p>
-                        {{ about.short_info|safe|truncatewords:"20"|linebreaks }}
+                        {{ about_us.short_info|safe|truncatewords:"20"|linebreaks }}
                     </p>
                     <p><a href="/about"> Read more</a></p>
-                {% endfor %}
             {% else %}
                 <p>There are no aboutus.</p>
             {% endif %}
@@ -66,20 +64,20 @@
             <h4 class="well"><span class="glyphicon glyphicon-user"></span> Contact US</h4>
 
             <div class="well">
-                {% if contacts %}
+                {% if contact_us %}
 
-                    {% for contact in contacts %}
-                        <p>Company Name: {{ contact.company_name }} </p>
-                        <p>Street Address: {{ contact.street_address }} </p>
-                        <p>City: {{ contact.city }}</p>
-                        <p>District: {{ contact.district }}</p>
-                        <p>Zone: {{ contact.zone }}</p>
-                        <p>Country: {{ contact.country }}</p>
-                        <p>Telephone No:{{ contact.telephone_no }} </p>
-                        <p>Mobile No:{{ contact.mobile_no }} </p>
-                        <p>Fax:{{ contact.fax }} </p>
-                        <p>Email:{{ contact.email }} </p>
-                    {% endfor %}
+{#                    {% for contact in contacts %}#}
+                        <p>Company Name: {{ contact_us.company_name }} </p>
+                        <p>Street Address: {{ contact_us.street_address }} </p>
+                        <p>City: {{ contact_us.city }}</p>
+                        <p>District: {{ contact_us.district }}</p>
+                        <p>Zone: {{ contact_us.zone }}</p>
+                        <p>Country: {{ contact_us.country }}</p>
+                        <p>Telephone No:{{ contact_us.telephone_no }} </p>
+                        <p>Mobile No:{{ contact_us.mobile_no }} </p>
+                        <p>Fax:{{ contact_us.fax }} </p>
+                        <p>Email:{{ contact_us.email }} </p>
+{#                    {% endfor %}#}
                 {% else %}
                     <p>There are no contacts.</p>
 

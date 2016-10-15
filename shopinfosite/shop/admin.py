@@ -16,18 +16,22 @@ class ContactMessageProfile(admin.ModelAdmin):
         'full_name',
         'email',
         'contact_no',
+        'title',
         'message',
+        'created_at',
     )
     list_display = (
-            'full_name',
-            'email',
-            'contact_no',
-        )
+        'full_name',
+        'email',
+        'contact_no',
+        'title',
+        'created_at',
+    )
 
 
 class ItemCoverImageProfile(admin.ModelAdmin):
     readonly_fields = (
-       'item_cover_image',
+        'item_cover_image',
     )
     list_display = ('name', 'category', 'item_cover_image',)
 
@@ -38,8 +42,19 @@ class ImageNameProfile(admin.ModelAdmin):
     )
     list_display = ('image_name',)
 
+
 admin.site.register(Category, DateProfile)
-admin.site.register(Item, ItemCoverImageProfile)
+
+
+class ItemProfile(admin.ModelAdmin):
+    search_fields = ['name', 'descriptions']
+    readonly_fields = (
+        'item_cover_image',
+    )
+    list_display = ('name', 'category', 'item_cover_image',)
+
+
+admin.site.register(Item, ItemProfile)
 
 
 class ItemImageProfile(admin.ModelAdmin):
@@ -47,6 +62,7 @@ class ItemImageProfile(admin.ModelAdmin):
         'item_image',
     )
     list_display = ('item', 'image_name', 'item_image')
+
 
 admin.site.register(ItemImage, ItemImageProfile)
 admin.site.register(About)
@@ -60,6 +76,9 @@ admin.site.register(ShopLogo)
 
 
 class SocialLinkProfile(admin.ModelAdmin):
-
     list_display = ('facebook', 'twitter', 'googleplus', 'youtube', 'linkedin')
+
+
 admin.site.register(SocialLink, SocialLinkProfile)
+
+

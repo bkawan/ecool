@@ -5,7 +5,7 @@ import os
 from django.utils.safestring import mark_safe
 
 from ckeditor.fields import RichTextField
-
+from django.core.validators import validate_email
 class Category(models.Model):
 
     created_at = models.DateTimeField(
@@ -77,8 +77,10 @@ class ItemImage(models.Model):
     image = models.FileField(upload_to='images/item_images/', null=True, blank=True)
 
 
+
     class Meta:
         db_table = 'item_images'
+    #
 
     def __str__(self):
         return self.image.url
@@ -167,8 +169,6 @@ class About(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
 
-
-
     company_name = models.CharField(max_length=255, null=True, blank=True)
     short_info = RichTextField()
     descriptions = RichTextField()
@@ -187,11 +187,13 @@ class About(models.Model):
 
 
 class ContactMessage(models.Model):
-
-    full_name = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=True)
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
     contact_no = models.PositiveIntegerField(null=True, blank=True)
-    message = models.TextField(null=True, blank=True)
+    title = models.CharField(max_length=255)
+    message = models.TextField()
 
     class Meta:
         db_table = 'contact_messages'

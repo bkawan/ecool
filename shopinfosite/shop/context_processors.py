@@ -72,6 +72,8 @@ def about_us(request):
         return {
             'about_us': False
         }
+
+
 def contact_us(request):
     try:
 

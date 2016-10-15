@@ -1,13 +1,23 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 # Create your views here.
+import smtplib
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 
+from email.mime.text import MIMEText
 from .models import Category, Contact, News, About, Item, BannerImage, Gallery, GalleryImage, ItemImage
 from django.http import HttpResponse
-
+import requests
 from django.shortcuts import render_to_response, get_object_or_404
 from .forms import ContactForm
+from django.conf import settings
+
+if "mailer" in settings.INSTALLED_APPS:
+    from mailer import send_mail
+else:
+    from django.core.mail import send_mail
+from django.core import mail
 
 
 def index(request):
@@ -45,6 +55,35 @@ def contact(request):
         'banners': BannerImage.objects.all(),
 
     }
+
+    if request.method =='POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            # full_name = request.POST.get(
+            #     'full_name',
+            #     ''
+            # )
+            # contact_no = request.POST.get(
+            #     'contact_no',
+            #     ''
+            # )
+            # email = request.POST.get(
+            #     'email',
+            #     ''
+            # )
+            # message = request.POST.get(
+            #     'message',
+            #     ''
+            # )
+            #
+
+
+            form.save()
+            messages.add_message(request, messages.SUCCESS, "Your message has been sucessfully sent.!! Thank you")
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'contact.html', {'form': form})
 
     return render(request, 'contact.html', context)
 
@@ -136,3 +175,30 @@ def view_product(request, item_id):
     }
 
     return render(request, template_name='view_product.html', context=context)
+
+
+
+def send_simple_message(full_name,sender,message):
+    return requests.post(
+        "https://api.mailgun.net/v3/effectivecool.com",
+        auth=("api", "key-8df30a190b4f08d61f09c13630f2491c"),
+        data={"from": "postmaster@effectivecool.com",
+              "to": ["bikeshkawang@gmail.com"],
+              "subject": full_name,
+              "text": message})
+
+
+
+from django.core.urlresolvers import reverse
+from django.contrib.auth.views import password_reset, password_reset_confirm
+
+def reset_confirm(request, uidb36=None, token=None):
+    return password_reset_confirm(request, template_name='app/reset_confirm.html',
+        uidb36=uidb36, token=token, post_reset_redirect=reverse('app:login'))
+
+
+def reset(request):
+    return password_reset(request, template_name='app/reset.html',
+        email_template_name='app/reset_email.html',
+        subject_template_name='app/reset_subject.txt',
+        post_reset_redirect=reverse('app:login'))

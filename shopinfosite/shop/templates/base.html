@@ -30,6 +30,10 @@
         .social .fa-youtube:hover {
             color: #e64522;
         }
+        .errorlist{
+            color: red;
+    }
+
 
     </style>
     <meta charset="UTF-8">
@@ -51,6 +55,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
               integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
               crossorigin="anonymous">
+        <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-image-gallery.min.css' %} ">
 
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
@@ -72,11 +78,16 @@
             </button>
             <a class="navbar-brand" href="/">
                 {% if logo %}
-                    <img src="{{ logo.logo.url }}" alt="Effective Cool Services" height="30px" width="50px">
+                    <img src="{{ logo.logo.url }}" alt="{{ logo.title }}" height="50px"
+                         width="50px"  style="display: inline-block;"/>
+                      <span style="display: inline-block;">{{ logo.title }}</span>
+
+
                 {% else %}
                     NO SHOP LOGO
                 {% endif %}
-            </a></div>
+            </a>
+</div>
         <!-- menu items -->
         <div class="collapse navbar-collapse" id="navbar1">
 
@@ -92,12 +103,13 @@
                     {% if categories %}
 
                         <ul class="dropdown-menu">
-                            {% for category in categories %}
-                                <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+                            {% for categorys in categories %}
+                                <li><a href="/category/{{ categorys.id }}">{{ categorys.name }}</a></li>
 
                             {% endfor %}
                         </ul>
                     {% endif %}
+
             </ul>
             <!-- social media icons -->
             <ul class="nav navbar-nav navbar-right social">
@@ -123,7 +135,11 @@
 
 <div class="container" style="margin-top: 50px">
     <div class="row">
-
+  {% if messages %}
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
         <div class="col-md-12">
 
             {% block content %}
@@ -164,23 +180,23 @@
             <div class="col-md-4">
                 <h3>Contact Us</h3>
 
-        {% if contacts %}
+                {% if contact_us %}
 
-        {% for contact in contacts %}
-        <p>Company Name: {{contact.company_name}} </p>
-        <p>Street Address: {{contact.street_address}} </p>
-        <p>City: {{contact.city}}</p>
-        <p>Mobile No:{{contact.mobile_no}} </p>
-        <p>Email:{{contact.email}} </p>
-        {% endfor %}
-            {% else %}
-             <p>Company Name:</p>
-        <p>Street Address:</p>
-        <p>City:</p>
-        <p>Mobile No:</p>
-        <p>Email:</p>
+                    {#        {% for contact in contact_us %}#}
+                    <p>Company Name: {{ contact_us.company_name }} </p>
+                    <p>Street Address: {{ contact_us.street_address }} </p>
+                    <p>City: {{ contact_us.city }}</p>
+                    <p>Mobile No:{{ contact_us.mobile_no }} </p>
+                    <p>Email:{{ contact_us.email }} </p>
+                    {#        {% endfor %}#}
+                {% else %}
+                    <p>Company Name:</p>
+                    <p>Street Address:</p>
+                    <p>City:</p>
+                    <p>Mobile No:</p>
+                    <p>Email:</p>
 
-        {% endif %}
+                {% endif %}
 
             </div>
         </div>

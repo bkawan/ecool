@@ -5,131 +5,149 @@
 
 {% block content %}
 
-<div class="row">
-
-    <div class="autoplay" slick="">
-        {% if banners %}
-        {% for banner in banners %}
-        <div class="well col-md-12">
-            <img src="{{banner.image.url}}" width="1100 px" height="450 px"/>
-        </div>
-
-        {% endfor %}
-        {% else %}
-
-        <div class="well col-md-12">
-            <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
-        </div>
-
-        {% endif %}
 
 
-    </div>
-</div>
-<div class="row" style="margin-top: 35px">
-    <div class="col-md-12 well">
 
+    <div class="row">
 
-        {% if abouts %}
+        <div class="autoplay" slick="">
+            {% if banners %}
+                {% for banner in banners %}
+                    <div class="well col-md-12">
+                        <img src="{{ banner.image.url }}" width="1100 px" height="450 px"/>
+                    </div>
 
-        {% for about in abouts %}
-        <h1> short description about company</h1>
-
-        <p>
-            {{ about.short_info|safe}}
-        </p>
-        {% endfor %}
-        {% else %}
-        <p>There are no aboutus.</p>
-        {% endif %}
-    </div>
-</div>
-
-
-<div class="row">
-
-    <div class="container col-md-12" style="background-color: #0b97c4">
-        <h1 style="text-align: center">Contact us</h1>
-    </div>
-
-</div>
-<br/>
-
-
-<div class="row">
-    <div class="col-md-4 well">
-        <h3 class="banner-title">Our location</h3>
-
-
-        {% if contacts %}
-
-        {% for contact in contacts %}
-        <p>Company Name: {{contact.company_name}} </p>
-        <p>Street Address: {{contact.street_address}} </p>
-        <p>City: {{contact.city}}</p>
-        <p>District: {{contact.district}}</p>
-        <p>Zone: {{contact.zone}}</p>
-        <p>Country: {{contact.country}}</p>
-        <p>Telephone No:{{contact.telephone_no}} </p>
-        <p>Mobile No:{{contact.mobile_no}} </p>
-        <p>Fax:{{contact.fax}} </p>
-        <p>Email:{{contact.email}} </p>
-        {% endfor %}
+                {% endfor %}
             {% else %}
-             <p>Company Name:</p>
-        <p>Street Address:</p>
-        <p>City:</p>
-        <p>District:</p>
-        <p>Zone:</p>
-        <p>Country:</p>
-        <p>Telephone No:</p>
-        <p>Mobile No:</p>
-        <p>Fax:</p>
-        <p>Email:</p>
 
-        {% endif %}
-    </div>
+                <div class="well col-md-12">
+                    <img src="{% static 'ecs.jpg' %}" width="1100 px" height="450 px"/>
+                </div>
 
-    <div class="col-md-8">
-        <form method="POST" class="post-form">{% csrf_token %}
+            {% endif %}
 
 
-            {{ form.as_p }}
-            <button type="submit" class="save btn btn-default">Save</button>
-        </form>
-
-
-        <br/><br/>
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="google-maps">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.4370093212797!2d85.42975530477331!3d27.67288508064866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe5fac03979032025!2sBhaktapur+Mini+Mart!5e0!3m2!1sen!2s!4v1475568424527"
-                    width="1200" height="550" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
     </div>
-</div>
+    <div class="row" style="margin-top: 35px">
+        <div class="col-md-12 well">
+
+
+            {% if abouts %}
+
+                {% for about in abouts %}
+                    <h1> short description about company</h1>
+
+                    <p>
+                        {{ about.short_info|safe }}
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>There are no aboutus.</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="container col-md-12" style="background-color: #0b97c4">
+            <h1 style="text-align: center">Contact us</h1>
+        </div>
+
+    </div>
+    <br/>
+
+
+    <div class="row">
+        <div class="col-md-4 well">
+            <h3 class="banner-title">Our location</h3>
+
+
+            {% if contacts %}
+
+                {% for contact in contacts %}
+                    <p>Company Name: {{ contact.company_name }} </p>
+                    <p>Street Address: {{ contact.street_address }} </p>
+                    <p>City: {{ contact.city }}</p>
+                    <p>District: {{ contact.district }}</p>
+                    <p>Zone: {{ contact.zone }}</p>
+                    <p>Country: {{ contact.country }}</p>
+                    <p>Telephone No:{{ contact.telephone_no }} </p>
+                    <p>Mobile No:{{ contact.mobile_no }} </p>
+                    <p>Fax:{{ contact.fax }} </p>
+                    <p>Email:{{ contact.email }} </p>
+                {% endfor %}
+            {% else %}
+                <p>Company Name:</p>
+                <p>Street Address:</p>
+                <p>City:</p>
+                <p>District:</p>
+                <p>Zone:</p>
+                <p>Country:</p>
+                <p>Telephone No:</p>
+                <p>Mobile No:</p>
+                <p>Fax:</p>
+                <p>Email:</p>
+
+            {% endif %}
+        </div>
+
+        <div class="col-md-8">
+
+
+            <form method="POST" class="post-form">{% csrf_token %}
+
+
+{##}
+{#                {% for field in form %}#}
+{#                    <div class="form-group">#}
+{#                        <span class="text-danger small"> {{ field.errors }}</span>#}
+{#                        <label class="control-label">{{ field.label_tag }}</label>#}
+{#                        {{ field }}#}
+{##}
+{#                    </div>#}
+{#                {% endfor %}#}
+                            {{ form.as_p }}
+
+
+
+
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+
+
+            <br/><br/>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="google-maps">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.4370093212797!2d85.42975530477331!3d27.67288508064866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe5fac03979032025!2sBhaktapur+Mini+Mart!5e0!3m2!1sen!2s!4v1475568424527"
+                        width="1200" height="550" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
 
 {% block javascript %}
 
-<script>
+    <script>
 
-    $('.autoplay').slick({
-        dots: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        prevArrow: false,
-        nextArrow: false
+        $('.autoplay').slick({
+            dots: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: false,
+            nextArrow: false
 
-    });
-</script>
+        });
+    </script>
 
 {% endblock %}
