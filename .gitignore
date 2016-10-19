@@ -93,4 +93,4 @@ ENV/
 
 migrations
 media
-smtp_settings/smtp_details.json
+smtp_details.json

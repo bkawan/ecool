@@ -1,5 +1,5 @@
 {
-  "EMAIL_HOST": "smtp.gmail.com",
-  "EMAIL_HOST_USER": "example@gmail.com",
+  "EMAIL_HOS": "smtp.gmail.com",
+  "EMAIL_HOST_USE": "example@gmail.com",
   "EMAIL_HOST_PASSWORD": "password"
 }
