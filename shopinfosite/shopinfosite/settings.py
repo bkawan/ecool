@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -155,3 +155,16 @@ CKEDITOR_CONFIGS = {
         'width': 1000,
     },
 }
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
+with open("smtp_settings/smtp_details.json") as smtp_data:
+    smtp_data = json.load(smtp_data)
+
+EMAIL_HOST = smtp_data['EMAIL_HOST']
+EMAIL_HOST_USER = smtp_data['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = smtp_data['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+

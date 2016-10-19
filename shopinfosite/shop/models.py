@@ -150,6 +150,11 @@ class Gallery(models.Model):
     def image_name(self):
         return os.path.basename(self.cover_image.name)
 
+    def gallery_image(self):
+        return '<img src="{}" height="100px" width="100px"/>'.format(self.cover_image.url)
+
+    gallery_image.allow_tags = True
+
 
 class GalleryImage(models.Model):
     image = models.ImageField(upload_to='images/galleries/', null=True, blank=True)
@@ -164,6 +169,12 @@ class GalleryImage(models.Model):
 
     def image_name(self):
         return os.path.basename(self.image.name)
+
+    def gallery_image(self):
+        return '<img src="{}" height="100px" width="100px"/>'.format(self.image.url)
+
+    gallery_image.allow_tags = True
+
 
 
 class About(models.Model):
@@ -215,7 +226,17 @@ class BannerImage(models.Model):
 
     def __str__(self):
 
-        return self.name + ": " + self.image.url
+        # return self.name + ": " + self.image.url
+        return os.path.basename(self.image.name)
+
+    def banner_image(self):
+        return '<img src="{}" height="100px" width="100px"/>'.format(self.image.url)
+
+
+    banner_image.allow_tags = True
+
+    def banner_image_base_name(self):
+        return os.path.basename(self.image.name)
 
 
 class News(models.Model):
@@ -247,6 +268,11 @@ class ShopLogo(models.Model):
 
     def __str__(self):
         return self.title + ":" + self.logo.url
+
+    def logo_image(self):
+        return '<img src="{}" height="100px" width="100px"/>'.format(self.logo.url)
+
+    logo_image.allow_tags = True
 
 
 class SocialLink(models.Model):

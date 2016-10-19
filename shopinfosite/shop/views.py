@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import smtplib
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-
+from django.http import HttpResponseNotFound
 from email.mime.text import MIMEText
 from .models import Category, Contact, News, About, Item, BannerImage, Gallery, GalleryImage, ItemImage
 from django.http import HttpResponse
@@ -191,16 +191,34 @@ def send_simple_message(full_name,sender,message):
 
 
 
-from django.core.urlresolvers import reverse
-from django.contrib.auth.views import password_reset, password_reset_confirm
 
-def reset_confirm(request, uidb36=None, token=None):
-    return password_reset_confirm(request, template_name='app/reset_confirm.html',
-        uidb36=uidb36, token=token, post_reset_redirect=reverse('app:login'))
+from django.http import HttpResponse, HttpResponseNotFound
+
+def my_view(request,foo):
+    # ...
+    if foo:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+    else:
+        return HttpResponse('<h1>Page was found</h1>')
 
 
-def reset(request):
-    return password_reset(request, template_name='app/reset.html',
-        email_template_name='app/reset_email.html',
-        subject_template_name='app/reset_subject.txt',
-        post_reset_redirect=reverse('app:login'))
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import Context, loader
+##
+# Handle 404 Errors
+# @param request WSGIRequest list with all HTTP Request
+def error404(request):
+
+    # 1. Load models for this view
+    #from idgsupply.models import My404Method
+
+    # 2. Generate Content for this view
+    template = loader.get_template('404.html')
+    context = Context({
+        'message': 'All: %s' % request,
+        })
+
+    # 3. Return Template for this view + Data
+    return HttpResponse(content=template.render(context), content_type='text/html; charset=utf-8', status=404)

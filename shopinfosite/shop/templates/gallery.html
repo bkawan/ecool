@@ -16,15 +16,14 @@
 <br/>
 
 
-<div class="row">
-    <div class="col-md-12 well">
+    <div class="row">
 
 
         {% if galleries %}
 
         {% for gallery in galleries %}
 
-        <div class="col-md-3 well">
+        <div class="col-md-3 well" style="margin-left: 2px">
 
             <div>
                 <a href="gallery/{{gallery.id}}/">
@@ -42,7 +41,6 @@
     </div>
 
 
-</div>
 
 
 {% endblock %}

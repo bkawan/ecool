@@ -4,30 +4,22 @@
 
 {% block title %} View Category's Product {% endblock %}
 
-{#{% block css %}#}
-{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">#}
-{##}
-{#    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">#}
-{#    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">#}
-{#    <link rel="stylesheet" href="{% static 'css/bootstrap-image-gallery.min.css' %} ">#}
-{#{% endblock %}#}
-
 
 {% block content %}
-    <div class="row">
+    <div class="row" style="margin-top: 2px">
 
-    <div class="container col-md-12" style="background-color: #0E2231;color:#9e9e9e">
-            <h1 style="text-align: center">Product By Category </h1>
+        <div class="container col-md-12" style="background-color: #0E2231;color:#9e9e9e">
+            <h3 style="text-align: center">Product By Category </h3>
         </div>
 
     </div>
     <br/>
 
     <div class="row">
-        <div class="col-sm-3 well">
+        <div class="col-sm-3 well" style="background-color: #0E2231;color:#9e9e9e">
             {% if category %}
 
-                <h3>{{ category.name }}</h3>
+                <h4 class="well">{{ category.name }}</h4>
                 <ul>
                     {% for item in category.get_products %}
                         <li><a href="/category/{{ category.id }}/product/{{ item.id }}">{{ item.name }}</a></li>
@@ -40,14 +32,15 @@
 
 
         <!-- Hidden -->
+                {% if item %}
+
         <div class="col-sm-9 post">
 
-            {% if item %}
 
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <div class="well">
+                        <div class="">
                             <h1> {{ item.name }} </h1>
 
                             <p>{{ item.category }}</p>
@@ -86,27 +79,28 @@
 
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-12 ">
+                    <div class="col-sm-12 ">
 
-                            <div class="well">
 
-                                {{ item.descriptions|safe }}
-                            </div>
-                        </div>
+                        {{ item.descriptions|safe }}
+
                     </div>
                 </div>
-            {% endif %}
+{#            {% endif %}#}
 
 
+    </div>
 
-            {% if not item %}
+{#            {% if not item %}#}
+            {% else %}
                 {% if latest_item_in_category %}
+                            <div class="col-sm-9 post">
+
 
                     <div class="row">
                         <div class="col-sm-12">
 
-                            <div class="well">
+                            <div class="">
                                 <h1> {{ latest_item_in_category.name }} </h1>
 
                                 <p>{{ latest_item_in_category.category }}</p>
@@ -145,27 +139,19 @@
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 ">
+                        <div class="col-sm-12 ">
 
-                                <div class="well">
 
-                                    {{ latest_item_in_category.descriptions|safe }}
-                                </div>
-                            </div>
+                            {{ latest_item_in_category.descriptions|safe }}
                         </div>
+                    </div>
                     </div>
                 {% endif %}
 
             {% endif %}
 
 
-        </div>
-
-
     </div>
-
-
 
     <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="true">
         <!--<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">-->
@@ -208,11 +194,12 @@
 
 
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+{#    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
+    {#    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>#}
+    <script src="{% static 'js/jquery.blueimp-gallery.min.js' %}"></script>
+
     <script src="{% static 'js/bootstrap-image-gallery.min.js' %}"></script>
 
-    <!--<script src="{% static 'js/demo.js' %}"></script>-->
 
     <script>
 

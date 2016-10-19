@@ -42,7 +42,6 @@ class ImageNameProfile(admin.ModelAdmin):
     )
     list_display = ('image_name',)
 
-
 admin.site.register(Category, DateProfile)
 
 
@@ -61,18 +60,57 @@ class ItemImageProfile(admin.ModelAdmin):
     readonly_fields = (
         'item_image',
     )
-    list_display = ('item', 'image_name', 'item_image')
+    list_display = ('item_image', 'item', 'image_name', )
 
 
 admin.site.register(ItemImage, ItemImageProfile)
+
 admin.site.register(About)
-admin.site.register(Contact)
+
+
+class ContactProfile(admin.ModelAdmin):
+    readonly_fields = ['created_at', 'modified_at']
+    list_display = ('company_name', 'email', 'street_address')
+admin.site.register(Contact, ContactProfile)
 admin.site.register(ContactMessage, ContactMessageProfile)
-admin.site.register(Gallery, ImageNameProfile)
-admin.site.register(BannerImage)
-admin.site.register(News)
-admin.site.register(GalleryImage, ImageNameProfile)
-admin.site.register(ShopLogo)
+
+
+class GalleryProfile(admin.ModelAdmin):
+    readonly_fields = ('image_name', 'gallery_image')
+    list_display = ('gallery_image', 'name', 'image_name')
+admin.site.register(Gallery, GalleryProfile)
+
+
+class BannerImageProfile(admin.ModelAdmin):
+    readonly_fields = (
+        'banner_image',
+    )
+    list_display = ('banner_image', 'banner_image_base_name', 'name')
+admin.site.register(BannerImage, BannerImageProfile)
+
+
+class NewsProfile(admin.ModelAdmin):
+    readonly_fields = ('created_at', 'modified_at')
+    search_fields = ['title', 'description']
+    list_display = ('title', 'created_at')
+
+admin.site.register(News, NewsProfile)
+
+
+class GalleryImageProfile(admin.ModelAdmin):
+    readonly_fields = (
+        'image_name', 'gallery_image',
+    )
+    list_display = ('gallery_image',  'gallery', 'image_name', 'name',)
+
+admin.site.register(GalleryImage, GalleryImageProfile)
+
+class ShopLogoProfile(admin.ModelAdmin):
+    readonly_fields = (
+        'logo_image', 'created_at', 'modified_at',
+    )
+    list_display = ('logo_image','title')
+admin.site.register(ShopLogo, ShopLogoProfile)
 
 
 class SocialLinkProfile(admin.ModelAdmin):
