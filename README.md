@@ -15,3 +15,5 @@ https://github.com/blueimp/Bootstrap-Image-Gallery.git
 
 
 smtp_settings 
+
+
