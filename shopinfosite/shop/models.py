@@ -45,7 +45,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # descriptions = models.TextField(null=True, blank=True)
     descriptions = RichTextField()
-    item_logo = models.FileField(upload_to='images/item_logo/', null=True, blank=True)
+    item_logo = models.FileField(upload_to='images/item_logo/')
 
     # slug = models.SlugField(max_length=100, unique=True)
 
@@ -77,7 +77,7 @@ class ItemImage(models.Model):
     # slug = models.SlugField(max_length=100, unique=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True, blank=True)
-    image = models.FileField(upload_to='images/item_images/', null=True, blank=True)
+    image = models.FileField(upload_to='images/item_images/')
 
 
 
@@ -135,7 +135,7 @@ class Gallery(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
     name = models.CharField(max_length=255, null=True, blank=True)
-    cover_image = models.ImageField(upload_to='images/galleries/', null=True, blank=True)
+    cover_image = models.ImageField(upload_to='images/galleries/')
     # slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
@@ -157,7 +157,7 @@ class Gallery(models.Model):
 
 
 class GalleryImage(models.Model):
-    image = models.ImageField(upload_to='images/galleries/', null=True, blank=True)
+    image = models.ImageField(upload_to='images/galleries/')
     name = models.CharField(max_length=255, null=True, blank=True)
     gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
 
@@ -187,7 +187,6 @@ class About(models.Model):
     short_info = RichTextField()
     descriptions = RichTextField()
     # slug = models.SlugField(max_length=100, unique=True)
-
 
 
     class Meta:
