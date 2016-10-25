@@ -13,7 +13,7 @@ class Category(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
 
-    name = models.CharField(max_length=255, null=True,blank=True)
+    name = models.CharField(max_length=255)
     # slug = models.SlugField(max_length=100, unique=True)
 
 
@@ -41,7 +41,7 @@ class Item(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
 
-    name = models.CharField(max_length=255, null=True,blank=True)
+    name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # descriptions = models.TextField(null=True, blank=True)
     descriptions = RichTextField()
@@ -103,16 +103,16 @@ class Contact(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
 
-    company_name = models.CharField(max_length=255, null=True, blank=True)
-    street_address = models.CharField(max_length=255, null=True, blank=True)
-    city = models.CharField(max_length=255, null=True, blank=True)
+    company_name = models.CharField(max_length=255)
+    street_address = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
     district = models.CharField(max_length=255, null=True, blank=True)
     zone = models.CharField(max_length=255, null=True, blank=True)
-    country = models.CharField(max_length=255, null=True, blank=True)
-    telephone_no = models.PositiveIntegerField(null=True, blank=True)
-    mobile_no = models.PositiveIntegerField(null=True, blank=True)
+    country = models.CharField(max_length=255)
+    telephone_no = models.PositiveIntegerField()
+    mobile_no = models.PositiveIntegerField()
     fax = models.PositiveIntegerField(null=True, blank=True)
-    email = models.EmailField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255)
 
     facebook = models.CharField(max_length=255, null=True, blank=True)
     twitter = models.CharField(max_length=255, null=True, blank=True)
@@ -134,7 +134,7 @@ class Gallery(models.Model):
         auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
-    name = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(max_length=255)
     cover_image = models.ImageField(upload_to='images/galleries/')
     # slug = models.SlugField(max_length=100, unique=True)
 
@@ -243,7 +243,7 @@ class News(models.Model):
         auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
-    title = models.CharField(max_length=255, null=True, blank=True)
+    title = models.CharField(max_length=255)
     descriptions = RichTextField()
 
     class Meta:
@@ -279,7 +279,7 @@ class SocialLink(models.Model):
         auto_now_add=True, editable=True)
     modified_at = models.DateTimeField(
         auto_now=True, editable=True)
-    facebook = models.CharField(max_length=255, null=True, blank=True)
+    facebook = models.CharField(max_length=255)
     twitter = models.CharField(max_length=255, null=True, blank=True)
     googleplus = models.CharField(max_length=255, null=True, blank=True)
     youtube = models.CharField(max_length=255, null=True, blank=True)
